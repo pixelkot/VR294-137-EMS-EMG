@@ -24,12 +24,11 @@ public class GunInteraction : MonoBehaviour
     {
         if (holdingGun)
         {
-            SimpleShoot gunScript = gun.GetComponent<SimpleShoot>();
 
-            if (indexTriggerState > 0.9f && oldIndexTriggerState < 0.9f)
-                gunScript.ShootTrigger();
+            if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.9f)
+                gun.GetComponent<SimpleShoot>().ShootTrigger();
 
-            if (handTriggerState < 0.9f)
+            if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) < 0.9f)
             {
                 Release();
             }
@@ -77,7 +76,6 @@ public class GunInteraction : MonoBehaviour
         rigidbody.useGravity = true;
         rigidbody.isKinematic = false;
 
-        rigidbody.velocity = OVRInput.GetLocalControllerVelocity(controller);
 
         EventManagerScript.holdingGun = false;
         holdingGun = false;

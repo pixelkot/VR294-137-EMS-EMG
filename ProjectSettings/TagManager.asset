@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - bullet
   - bullet hole
+  - gun
   layers:
   - Default
   - TransparentFX
