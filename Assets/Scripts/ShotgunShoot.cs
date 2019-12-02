@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class ShotgunShoot : MonoBehaviour
 {
+    // Bullet prefab.
     public GameObject bulletPrefab;
+
+    // Bullet origin position.
     public Transform barrelLocation;
 
+    // Bullet speed.
     public float shotPower = 100f;
 
+    // Audio. 
     public AudioSource audioSource;
     public AudioClip shotgunShot;
 
+    // Gun GO.
     public GameObject shotgun;
 
-    void Start()
-    {
-    }
-
+    // If gun is grabbed && shot => trigger shot animation && Shoot().
     void Update()
     {
         if (shotgun.GetComponent<OVRGrabbable>().isGrabbed && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)))
@@ -28,7 +31,7 @@ public class ShotgunShoot : MonoBehaviour
         }
     }
 
-
+    // Shoot bullet && play accompanying audio.
     void Shoot()
     {
         audioSource.PlayOneShot(shotgunShot, 0.7F);
