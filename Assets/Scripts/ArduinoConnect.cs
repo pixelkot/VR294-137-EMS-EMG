@@ -12,25 +12,25 @@ public class ArduinoConnect : MonoBehaviour
     // Open port upon start up
     void Start() {
         if (serial.IsOpen == false) {
-	 	serial.Open();
-	 }
+	 	    serial.Open();
+	    }
     }
     
     public void OnButtonLED()
      {
          Debug.Log("Button was pressed!");
 
-	 if (lightOn == false) {
-		Debug.Log("Light on");
-	   	// "A" turns light on (see ArduinoLED.ino)
+	     if (lightOn == false) {
+		    Debug.Log("Light on");
+	   	    // "A" turns light on (see ArduinoLED.ino)
 	        serial.Write("A");
-		lightOn = true;
-	 } else {
-		Debug.Log("Light off");
-		// Not "A" turns light off (see ArduinoLED.ino)
-		serial.Write("Off");
-		lightOn = false;
-	 }
+		    lightOn = true;
+	     } else {
+		    Debug.Log("Light off");
+		    // Not "A" turns light off (see ArduinoLED.ino)
+		    serial.Write("Off");
+		    lightOn = false;
+	     }
      }
 
     

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO.Ports;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -12,9 +13,16 @@ public class EventManager : MonoBehaviour
 
     public bool holdingGun = false;
 
+    // Set to right COM#
+    public SerialPort serial = new SerialPort("COM7", 9600);
+
     // Start is called before the first frame update
     void Start()
     {
+        if (serial.IsOpen == false)
+        {
+            serial.Open();
+        }
     }
 
     // Update is called once per frame
@@ -23,9 +31,15 @@ public class EventManager : MonoBehaviour
         if (handgun.GetComponent<OVRGrabbable>().isGrabbed || shotgun.GetComponent<OVRGrabbable>().isGrabbed)
         {
             holdingGun = true;
-        } else
+        }
+        else
         {
             holdingGun = false;
+        }
+
+        if (holdingGun && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)))
+        {
+            serial.Write("A");
         }
 
         if (holdingGun)
