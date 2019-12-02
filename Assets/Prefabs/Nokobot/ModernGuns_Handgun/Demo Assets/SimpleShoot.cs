@@ -11,8 +11,8 @@ public class SimpleShoot : MonoBehaviour
     public Transform barrelLocation;
     public Transform casingExitLocation;
 
-
     public float shotPower = 100f;
+
 
     void Start()
     {
@@ -22,10 +22,15 @@ public class SimpleShoot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            GetComponent<Animator>().SetTrigger("Fire");
-        }
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    GetComponent<Animator>().SetTrigger("Fire");
+        //}
+    }
+
+    void ShootTrigger()
+    {
+        GetComponent<Animator>().SetTrigger("Fire");
     }
 
     void Shoot()
