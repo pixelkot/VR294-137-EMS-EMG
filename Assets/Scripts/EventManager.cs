@@ -23,10 +23,9 @@ public class EventManager : MonoBehaviour
         if (handgun.GetComponent<OVRGrabbable>().isGrabbed || shotgun.GetComponent<OVRGrabbable>().isGrabbed)
         {
             holdingGun = true;
-            Debug.Log("grabbed gun");
         } else
         {
-            Debug.Log("gun dropped");
+            holdingGun = false;
         }
 
         if (holdingGun)

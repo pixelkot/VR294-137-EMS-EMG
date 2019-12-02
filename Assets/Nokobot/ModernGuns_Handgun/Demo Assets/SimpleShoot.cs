@@ -11,6 +11,8 @@ public class SimpleShoot : MonoBehaviour
     public Transform barrelLocation;
     public Transform casingExitLocation;
 
+    public GameObject handgun;
+
     public float shotPower = 100f;
 
 
@@ -22,7 +24,7 @@ public class SimpleShoot : MonoBehaviour
 
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        if (handgun.GetComponent<OVRGrabbable>().isGrabbed && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)))
         {
             GetComponent<Animator>().SetTrigger("Fire");
         }

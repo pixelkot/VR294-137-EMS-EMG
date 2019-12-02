@@ -12,13 +12,15 @@ public class ShotgunShoot : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip shotgunShot;
 
+    public GameObject shotgun;
+
     void Start()
     {
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        if (shotgun.GetComponent<OVRGrabbable>().isGrabbed && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)))
         {
             GetComponent<Animation>()["Reload"].wrapMode = WrapMode.Once;
             GetComponent<Animation>().Play("Reload");
