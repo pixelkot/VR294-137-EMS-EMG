@@ -22,17 +22,13 @@ public class SimpleShoot : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    GetComponent<Animator>().SetTrigger("Fire");
-        //}
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            GetComponent<Animator>().SetTrigger("Fire");
+        }
     }
 
-    public void ShootTrigger()
-    {
-        GetComponent<Animator>().SetTrigger("Fire");
-    }
-
+   
     void Shoot()
     {
         //  GameObject bullet;

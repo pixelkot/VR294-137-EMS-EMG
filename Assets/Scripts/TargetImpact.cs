@@ -22,9 +22,10 @@ public class TargetImpact : MonoBehaviour
     {
         if (other.tag == "bullet")
         {
+            Debug.Log("Bullet hit target");
             Transform t = other.transform;
             Destroy(other.gameObject);
-            Instantiate(bulletHolePrefab, new Vector3(t.position.x + 0.01f, t.position.y, t.position.z), Quaternion.identity);
+            Instantiate(bulletHolePrefab, new Vector3(t.position.x, t.position.y, this.gameObject.transform.position.z - 0.02f), Quaternion.identity);
         }
     }
 
