@@ -32,10 +32,6 @@ public class ShotgunShoot : MonoBehaviour
     void Shoot()
     {
         audioSource.PlayOneShot(shotgunShot, 0.7F);
-        if (audioSource.isPlaying)
-        {
-            Debug.Log("playing audio");
-        }
         GameObject bullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
         bullet.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
         bullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);

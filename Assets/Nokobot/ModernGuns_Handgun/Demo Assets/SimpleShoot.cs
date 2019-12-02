@@ -13,6 +13,9 @@ public class SimpleShoot : MonoBehaviour
 
     public GameObject handgun;
 
+    public AudioSource audioSource;
+    public AudioClip handgunShot;
+
     public float shotPower = 100f;
 
 
@@ -41,9 +44,10 @@ public class SimpleShoot : MonoBehaviour
        Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
        tempFlash = Instantiate(muzzleFlashPrefab, barrelLocation.position, barrelLocation.rotation);
 
-       // Destroy(tempFlash, 0.5f);
+        audioSource.PlayOneShot(handgunShot, 0.7F);
+        // Destroy(tempFlash, 0.5f);
         //  Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation).GetComponent<Rigidbody>().AddForce(casingExitLocation.right * 100f);
-       
+
     }
 
     void CasingRelease()
