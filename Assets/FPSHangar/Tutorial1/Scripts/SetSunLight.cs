@@ -53,7 +53,7 @@ public class SetSunLight : MonoBehaviour {
 		worldProbe.transform.position = tvec;
 
 		//water.material.mainTextureOffset = new Vector2(Time.time / 100, 0);
-		//water.material.SetTextureOffset("_DetailAlbedoMap", new Vector2(0, Time.time / 80));
+		//wwater.material.SetTextureOffset("_DetailAlbedoMap", new Vector2(0, Time.time / 80));
 
 	}
 }
