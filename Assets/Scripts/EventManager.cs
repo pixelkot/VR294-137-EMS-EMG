@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
 using UnityEngine;
@@ -17,17 +17,12 @@ public class EventManager : MonoBehaviour
     // Flag if a gun is currently held.
     public bool holdingGun = false;
 
-    // Arduino: Set to right COM# 
+    // Arduino: Set to right COM#
     public SerialPort serial = new SerialPort("COM7", 9600);
 
     // Start is called before the first frame update
     void Start()
     {
-        // Open Arduino port.
-        if (serial.IsOpen == false)
-        {
-            serial.Open();
-        }
     }
 
     // Update is called once per frame
@@ -41,12 +36,6 @@ public class EventManager : MonoBehaviour
         else
         {
             holdingGun = false;
-        }
-
-        // Arduino: if shooting, signal via serial port (Check .ino signal=="A")
-        if (holdingGun && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)))
-        {
-            serial.Write("A");
         }
 
         // Flag: Gun Held? @ UI
