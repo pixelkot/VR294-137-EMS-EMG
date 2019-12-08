@@ -26,8 +26,6 @@ public class SimpleShoot : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip handgunShot;
 
-    public float shotPower = 100f;
-
     public bool singleSignalSent = false;
 
     // Arduino serial port.
