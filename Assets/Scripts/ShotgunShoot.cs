@@ -41,7 +41,11 @@ public class ShotgunShoot : MonoBehaviour
             Debug.Log("Sending signal to Arduino");
           }
           // Trigger pressend all the way -> fire.
+<<<<<<< HEAD
           if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
+=======
+          if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) {
+>>>>>>> a845f6e03bf219e8d0c80879602844abcd17a22e
             Debug.Log("Firing gun");
             serial.Write("B");
             serial.Write("A");

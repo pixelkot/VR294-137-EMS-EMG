@@ -6,8 +6,9 @@ unsigned long time_ms;
 void setup() {
   // Setup code runs once.
   Serial.begin(9600);
-  // LED on pin 8.
-  pinMode(8, OUTPUT);
+  // Int+ on pin 13, Int- on pin12.
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
 }
 
 void loop() {
@@ -16,10 +17,10 @@ void loop() {
     // Data = input to serial monitor.
     data = Serial.read();
     // Delay_button_press = delay in ms between delivering HIGH and LOW (simulate button press)
-    int delay_button_press = 60;
+    int delay_button_press = 70;
     // Delay_between_buttons = delay between button presses.
-    int delay_between_buttons = 60;
-    // if data is A, deliver 
+    int delay_between_buttons = 100;
+    // if data is A, deliver
     if(data == 'A') {
       // Keep track of time for debug purposes.
       time_ms = millis();
@@ -27,26 +28,43 @@ void loop() {
 
       // Awake device.
       Serial.println("Turn Screen On");
-      buttonPress(delay_button_press);
+      buttonPress(12, delay_button_press);
 
       // Loop to simulate several button presses
-      for (int i = 0; i < 4; i ++) {
+      for (int i = 0; i < 1; i ++) {
         Serial.println(time_ms);
         Serial.println("start");
-        buttonPress(delay_button_press);
+        buttonPress(12, delay_button_press);
         delay(delay_between_buttons);
-        buttonPress(delay_button_press);
+        buttonPress(12, delay_button_press);
       }
 
-      // Print total time to increase to set intensity for debug purposes. 
+      // Print total time to increase to set intensity for debug purposes.
       Serial.println(millis()-time_ms);
-    } 
+    } else if (data == 'B') {
+      // Keep track of time for debug purposes.
+      time_ms = millis();
+      Serial.println(time_ms);
+
+      // Awake device.
+      Serial.println("Turn Screen On");
+      buttonPress(13, delay_button_press);
+
+      // Loop to simulate several button presses
+      for (int i = 0; i < 1; i ++) {
+        Serial.println(time_ms);
+        Serial.println("start");
+        buttonPress(13, delay_button_press);
+        delay(delay_between_buttons);
+        buttonPress(13, delay_button_press);
+      }
+    }
   }
 }
 
 // Function to simulate button press.
-void buttonPress(int button_delay_ms) {
-  digitalWrite(8,HIGH);
+void buttonPress(int pinID, int button_delay_ms) {
+  digitalWrite(pinID,HIGH);
   delay(button_delay_ms);
-  digitalWrite(8,LOW);
+  digitalWrite(pinID,LOW);
 }
