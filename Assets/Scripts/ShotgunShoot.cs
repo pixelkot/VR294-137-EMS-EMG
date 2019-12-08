@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO.Ports;
 using UnityEngine;
 
 public class ShotgunShoot : MonoBehaviour
@@ -13,21 +14,39 @@ public class ShotgunShoot : MonoBehaviour
     // Bullet speed.
     public float shotPower = 100f;
 
-    // Audio. 
+    // Audio.
     public AudioSource audioSource;
     public AudioClip shotgunShot;
 
     // Gun GO.
     public GameObject shotgun;
 
+    // Arduino serial port.
+    public SerialPort serial = new SeerialPort("COM4", 9600);
+
+    void Start() {
+      if (serial.IsOpen == false) {
+        serial.Open();
+      }
+    }
+
     // If gun is grabbed && shot => trigger shot animation && Shoot().
     void Update()
     {
-        if (shotgun.GetComponent<OVRGrabbable>().isGrabbed && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)))
-        {
-            GetComponent<Animation>()["Reload"].wrapMode = WrapMode.Once;
-            GetComponent<Animation>().Play("Reload");
+        if (shotgun.GetComponent<OVRGrabbable>().isGrabbed) {
+          Debug.Log("shotty grabbed");
+          // Detect gun being about to be shot -> send signal to Arduino.
+          if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f || OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.1f) {
+            // Send signal to Arduino.
+            Debug.Log("Sending signal to Arduino");
+          }
+          // Trigger pressend all the way -> fire.
+          if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) {
+            Debug.Log("Firing gun");
+            serial.Write("B");
+            serial.Write("A");
             Shoot();
+          }
         }
     }
 

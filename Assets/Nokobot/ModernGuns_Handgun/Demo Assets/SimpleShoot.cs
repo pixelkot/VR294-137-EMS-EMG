@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO.Ports;
 using UnityEngine;
 
 public class SimpleShoot : MonoBehaviour
@@ -24,22 +25,51 @@ public class SimpleShoot : MonoBehaviour
     // Audio.
     public AudioSource audioSource;
     public AudioClip handgunShot;
+
     public float shotPower = 100f;
+
+    public bool singleSignalSent = false;
+
+    // Arduino serial port.
+    public SerialPort serial = new SeerialPort("COM4", 9600);
 
     void Start()
     {
         if (barrelLocation == null)
             barrelLocation = transform;
+
+        if (serial.IsOpen == false) {
+            serial.Open();
+        }
+    }
+
+    void reset() {
+      serial.Write("A");
     }
 
     void Update()
     {
-        // Gun Grabbed && Shot => trigger animation. 
-        if (handgun.GetComponent<OVRGrabbable>().isGrabbed && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)))
-        {
+        // If gun is grabbed.
+        if (handgun.GetComponent<OVRGrabbable>().isGrabbed) {
+          // Detect gun geing about to be shot -> send signal to Arduino.
+          if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger) > 0.1f || OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) > 0.1f) {
+            if (!singleSignalSent) {
+              signalSignalSent = true;
+              Debug.Log("Sending signal to Arduino");
+              // B = Intensity up, A = Intensity down
+              serial.Write("B");
+              reset();
+            }
+          }
+          // Trigger pressed all the way -> Fire
+          if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) {
+            Debug.Log("Firing gun");
+
             GetComponent<Animator>().SetTrigger("Fire");
+          }
         }
     }
+
 
     // Shooting logic.
     void Shoot()
@@ -51,9 +81,11 @@ public class SimpleShoot : MonoBehaviour
 
         // Audio upon shot.
         audioSource.PlayOneShot(handgunShot, 0.7F);
+
+        singleSignalSent = false;
     }
 
-    // Shot animation on gun. 
+    // Shot animation on gun.
     void CasingRelease()
     {
         GameObject casing;
