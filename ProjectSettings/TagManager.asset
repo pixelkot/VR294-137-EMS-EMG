@@ -8,6 +8,7 @@ TagManager:
   - bullet
   - bullet hole
   - gun
+  - drums
   layers:
   - Default
   - TransparentFX

@@ -29,7 +29,7 @@ public class SimpleShoot : MonoBehaviour
     public bool singleSignalSent = false;
 
     // Arduino serial port.
-    public SerialPort serial = new SeerialPort("COM4", 9600);
+    public SerialPort serial = new SerialPort("COM4", 9600);
 
     void Start()
     {
@@ -50,9 +50,9 @@ public class SimpleShoot : MonoBehaviour
         // If gun is grabbed.
         if (handgun.GetComponent<OVRGrabbable>().isGrabbed) {
           // Detect gun geing about to be shot -> send signal to Arduino.
-          if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger) > 0.1f || OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) > 0.1f) {
+          if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f || OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.1f) {
             if (!singleSignalSent) {
-              signalSignalSent = true;
+              singleSignalSent = true;
               Debug.Log("Sending signal to Arduino");
               // B = Intensity up, A = Intensity down
               serial.Write("B");
