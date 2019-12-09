@@ -46,7 +46,7 @@ public class goalieSave : MonoBehaviour
         if (!ballCounter)
         {    // Set so you will only throw 1 ball at a time
             GameObject ball = Instantiate(soccerBall, GameObject.Find("BallKickPoint").transform.position, transform.rotation);
-            ball.rigidbody.velocity = BallisticVel(player);
+            //ball.GetComponent<Rigidbody>().velocity = BallisticVel(player);
             ballCounter = true;
         }
     }
@@ -92,7 +92,7 @@ public class goalieSave : MonoBehaviour
          var vel = Mathf.Sqrt(dist * Physics.gravity.magnitude);
          return vel* dir.normalized;                                        // Returns Vector3 velocity
          */
-}
+
 
 private void OnTriggerEnter(Collider other)
     {
